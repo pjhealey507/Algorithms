@@ -1,0 +1,31 @@
+    public void PrintFirstItem(int[] array) //Constant
+		{
+			WriteLine(array[0]);
+		}
+    
+    //No matter how many items are in the array, the method will only print one int.
+    
+
+		public void PrintArray(int[] array) //Linear
+		{
+			foreach (int i in array)
+			{
+				WriteLine(i);
+			}
+		}
+    
+    //The method will print the same amount of arguments as the array contains.
+    
+
+		public void PrintArraySquared(int[] array) //Quadratic
+		{
+			foreach (int i in array)
+			{
+				foreach (int j in array)
+				{
+					WriteLine(j);
+				}
+			}
+		}
+    
+    //The method will print the amount of arguments in the array squared.
