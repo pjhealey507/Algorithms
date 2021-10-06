@@ -1,0 +1,42 @@
+extends KinematicBody2D
+
+#For collision identification
+var type = "ThrownShield"
+
+#Movement Variables
+var velocity = Vector2()
+var speed = 15
+var rotation_speed = 10
+
+var damage = 1
+
+func _ready():
+	randomize()
+
+#Called every frame
+func _physics_process(delta):
+	handle_movement()
+	shield_bounce(delta)
+	rotate_shield()
+
+#Move, not frame dependent
+func handle_movement():
+	move_and_collide(velocity * speed)
+
+#Rotates the sprite to simulate spinning
+func rotate_shield():
+	if velocity.x > 0:
+		$ThrownShieldSprite.rotation_degrees += rotation_speed
+	else:
+		$ThrownShieldSprite.rotation_degrees -= rotation_speed
+
+#Shield bounces when hitting a wall or enemy 
+func shield_bounce(delta):
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		velocity = velocity.bounce(collision.normal)
+		rotation_speed = rand_range(10,17) #Sets new rotation speed
+
+#Removes itself when colliding with the player
+func On_Shield_Caught():
+	queue_free()
